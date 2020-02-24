@@ -1,4 +1,13 @@
 class AuthenticateController < ApplicationController
+  def login
+    @user = User.find_by(email: user_params[:email]).try(:authenticate, user_params[:password])   
+    if @user
+      render json: @user
+    else
+      render json: 'error', status: :forbidden
+    end
+  end
+
   def sign_up
     @user = User.new(user_params)
 
