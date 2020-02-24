@@ -4,7 +4,7 @@ class AuthenticateController < ApplicationController
     if @user
       render json: @user
     else
-      render json: 'error', status: :forbidden
+      render json: 'creds didn\'t match', status: :forbidden
     end
   end
 
