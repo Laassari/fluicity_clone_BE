@@ -4,7 +4,7 @@ class AuthenticateController < ApplicationController
     if @user
       render json: @user
     else
-      render json: 'creds didn\'t match', status: :forbidden
+      render json: { errors: 'creds didn\'t match' }, status: :forbidden
     end
   end
 
@@ -12,10 +12,15 @@ class AuthenticateController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: @user, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
+  end
+
+  def email_exists
+    @user = User.find_by(email: params[:email])
+    render json: {success: !!@user}
   end
 
   private
