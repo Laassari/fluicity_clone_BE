@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   post 'authenticate/email_exists'
   post 'authenticate/sign_up'
 
+  get '/posts', to: 'posts#index'
+  get '/posts/:id', to: 'posts#show'
+  post '/posts', to: 'posts#create'
   delete '/posts/:id', to: 'posts#destroy'
   put '/posts/:id', to: 'posts#update'
 

@@ -7,6 +7,17 @@ class PostsController < ApplicationController
     render json: @posts
   end
 
+  def show
+    post = {
+      id: @post.id,
+      title: @post.title,
+      description: @post.description,
+      created_at: @post.created_at,
+      image: url_for(@post.image)
+    }
+
+    render json: post
+  end
 
   def create
     @post = Post.new(post_params)
