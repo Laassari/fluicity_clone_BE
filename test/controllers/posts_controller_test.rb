@@ -2,7 +2,8 @@ require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @post = posts(:one)
+    @post = posts(:valid)
+    @invalid_post = posts(:invalid)
   end
 
   test "should get index" do
@@ -12,27 +13,23 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create post" do
     assert_difference('Post.count') do
-      post posts_url, params: { post: { description: @post.description, image_id: @post.image_id, title: @post.title } }, as: :json
+      post posts_url, params: { description: @post.description, title: @post.title }, as: :json
     end
 
     assert_response 201
   end
 
+  test "slould not create post with invalid data" do
+    assert_no_changes('Post.count') do
+      post posts_url, params: { description: @invalid_post.description, title: @invalid_post.title }, as: :json
+    end
+
+    assert_response 422
+  end
+
   test "should show post" do
-    get post_url(@post), as: :json
+    get posts_url(@post), as: :json
     assert_response :success
   end
 
-  test "should update post" do
-    patch post_url(@post), params: { post: { description: @post.description, image_id: @post.image_id, title: @post.title } }, as: :json
-    assert_response 200
-  end
-
-  test "should destroy post" do
-    assert_difference('Post.count', -1) do
-      delete post_url(@post), as: :json
-    end
-
-    assert_response 204
-  end
 end
