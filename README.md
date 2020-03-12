@@ -1,26 +1,21 @@
-# README
+# Fluicity clone
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## setup
 
-Things you may want to cover:
+```
+bundle
+rails db:setup
+rails migrate
+```
 
-* Ruby version
+## run
 
-* System dependencies
+```
+rails serve
+```
 
-* Configuration
+## test
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-> Here we go again
+```
+rails test
+```
